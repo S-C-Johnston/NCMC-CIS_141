@@ -1,8 +1,72 @@
 body {
-	font-family: serif;
+	padding: 3em;
+	background: linear-gradient(maroon, black);
 
-}
+	article {
+		border: solid black;
+		padding: 1em;
+		font-family: serif;
 
-.publication-date {
-	font-family: sans-serif;
+		h2 { 
+			font-family: sans-serif;
+		}
+
+		h3 {
+			font-family: sans-serif;
+		}
+
+		background: white;
+
+		.movie-title {
+			color: red;
+		}
+
+		.publication-date {
+			font-family: sans-serif;
+			font-size: 90%;
+		}
+
+		.quoted-paragraph {
+			margin-left: auto;
+			margin-right: auto;
+			padding-left: 4em;
+			padding-right: 4em;
+		}
+
+		> :nth-child(4){
+			&::first-line {
+				text-transform: uppercase;
+			}
+			&::first-letter {
+				background: no-repeat center url("../images/tree-of-death.jpg");
+				border: solid thin maroon;
+				color: white;
+				font-size: 350%;
+				padding: 0.4em; 
+				margin: 0.05em;
+				float: left;
+			}
+		}
+
+		img {
+			margin: 1em;
+
+			&.inline-image-right {
+				float: right;
+			}
+
+			&.inline-image-left {
+				float: left;
+			}
+
+			&.banner {
+				clear: both;
+				margin: auto;
+			}
+		}
+
+		> :last-child {
+			font-size: 95%;
+		}
+	}
 }
