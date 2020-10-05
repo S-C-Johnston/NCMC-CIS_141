@@ -31,7 +31,7 @@ article {
 	.quoted-paragraph {
 	}
 
-	> :nth-child(4){
+	>p:first-of-type{
 		&::first-line {
 			text-transform: uppercase;
 		}

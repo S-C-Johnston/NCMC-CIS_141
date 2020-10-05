@@ -21,10 +21,10 @@ article .publication-date {
   font-family: sans-serif;
   font-size: 90%;
 }
-article > :nth-child(4)::first-line {
+article > p:first-of-type::first-line {
   text-transform: uppercase;
 }
-article > :nth-child(4)::first-letter {
+article > p:first-of-type::first-letter {
   background: no-repeat center url("../images/tree-of-death.jpg");
   border: solid thin maroon;
   color: white;
