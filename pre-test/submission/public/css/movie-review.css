@@ -40,8 +40,8 @@ article img {
   margin-right: auto;
   max-width: 100%;
 }
-article > :last-child {
-  font-size: 95%;
+article > .footnote {
+  font-size: small;
 }
 
 @media screen and (min-width: 20em) {
