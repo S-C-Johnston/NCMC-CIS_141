@@ -1,36 +1,30 @@
+@import "./normalize.css";
 body {
-  padding: 3em;
-  background: linear-gradient(maroon, black);
+  box-sizing: border-box;
 }
-body article {
-  border: solid black;
-  padding: 1em;
+
+article {
   font-family: serif;
   background: white;
+  padding: 1em;
 }
-body article h2 {
+article h2 {
   font-family: sans-serif;
 }
-body article h3 {
+article h3 {
   font-family: sans-serif;
 }
-body article .movie-title {
+article .movie-title {
   color: red;
 }
-body article .publication-date {
+article .publication-date {
   font-family: sans-serif;
   font-size: 90%;
 }
-body article .quoted-paragraph {
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 4em;
-  padding-right: 4em;
-}
-body article > :nth-child(4)::first-line {
+article > :nth-child(4)::first-line {
   text-transform: uppercase;
 }
-body article > :nth-child(4)::first-letter {
+article > :nth-child(4)::first-letter {
   background: no-repeat center url("../images/tree-of-death.jpg");
   border: solid thin maroon;
   color: white;
@@ -39,21 +33,55 @@ body article > :nth-child(4)::first-letter {
   margin: 0.05em;
   float: left;
 }
-body article img {
+article img {
   margin: 1em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
 }
-body article img.inline-image-right {
-  float: right;
-}
-body article img.inline-image-left {
-  float: left;
-}
-body article img.banner {
-  clear: both;
-  margin: auto;
-}
-body article > :last-child {
+article > :last-child {
   font-size: 95%;
+}
+
+@media screen and (min-width: 20em) {
+  body {
+    padding-top: 3em;
+    padding-bottom: 3em;
+    background: linear-gradient(maroon, black);
+  }
+  body article {
+    padding: 1.5em;
+  }
+}
+@media screen and (min-width: 50em) {
+  body {
+    padding-top: 3em;
+    padding-bottom: 3em;
+  }
+  body article {
+    margin: auto;
+    max-width: 53em;
+    border: solid black;
+    background: white;
+  }
+  body article img {
+    margin: 1em;
+    max-width: 60%;
+  }
+  body article img.inline-image-right {
+    float: right;
+  }
+  body article img.inline-image-left {
+    float: left;
+  }
+  body article img.banner {
+    margin: auto;
+    max-width: 100%;
+  }
+  body article > :last-child {
+    font-size: 95%;
+  }
 }
 
 /*# sourceMappingURL=movie-review.css.map */
