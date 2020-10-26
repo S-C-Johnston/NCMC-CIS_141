@@ -8,23 +8,26 @@
 const rlsync = require('readline-sync');
 
 const DEBUG = true;
-const UNIT_TEST = true;
 const DEFAULT_RETURN = 'Default return';
 //should a calling function have a default value, use that
 
 const BASE_PRICE = 50000;
 const BEDROOM_PRICE = 17000;
 const BATHROOM_PRICE = 12500;
-const GARAGE_PRICE_PER_CAR 6000;
+const GARAGE_PRICE_PER_CAR = 6000;
 
 function main()
 {
-	let current_lot = new Map({
-		lot_num,
-		num_bedrooms,
-		num_bathrooms,
-		garage_capacity,});
-};
+	let current_lot = new Map([
+		['lot_num',],
+		['num_bedrooms',],
+		['num_bathrooms',],
+		['garage_capacity',],
+	]);
+	calc_lot_price(current_lot);
+
+	prompt_int_in_range();
+}
 
 function calc_lot_price({num_bedrooms, num_bathrooms, garage_capacity})
 {
@@ -45,7 +48,7 @@ function calc_lot_price({num_bedrooms, num_bathrooms, garage_capacity})
 
 function prompt_int_in_range(message_str, min_num, max_num)
 {
-	let valid_min_max = validate_num_in_range(min_num, max_num, 0)
+	let valid_min_max = validate_num_in_range(min_num, max_num, 0);
 	if (DEBUG)
 	{
 		console.log(`min_num: ${min_num}, max_num: ${max_num}, valid_min_max:
@@ -56,13 +59,15 @@ function prompt_int_in_range(message_str, min_num, max_num)
 	let limit_message = `Input a number between ${min_num} and ${max_num}. A
 	maximum of 0 implies no limit.`;
 
+	let result;
+	let valid_result = false;
 	do
 	{
-		let result = rlsync.questionInt(message_str,
+		result = rlsync.questionInt(message_str,
 			{limitMessage: limit_message});
 		if (DEBUG) console.log(`result: ${result}`);
 
-		let valid_result = validate_num_in_range(min_num, max_num, result);
+		valid_result = validate_num_in_range(min_num, max_num, result);
 		if (DEBUG) console.log(`valid_result: ${valid_result}`);
 
 		if (typeof(valid_result) == Error || true != valid_result) 
@@ -75,7 +80,7 @@ function prompt_int_in_range(message_str, min_num, max_num)
 				return DEFAULT_RETURN;
 			}
 		}
-	} until (true == valid_result);
+	} while (true != valid_result);
 
 	return result;
 }
@@ -114,7 +119,4 @@ function validate_num_in_range(min_num, max_num, input)
 	}
 }
 
-if (true == UNIT_TEST)
-{
-
-}
+main();
