@@ -5,6 +5,8 @@
  * @version 2020.10.26.01
  */
 
+'use strict';
+
 const rlsync = require('readline-sync');
 
 const DEBUG = false;
@@ -18,7 +20,6 @@ const GARAGE_PRICE_PER_CAR = 6000;
 
 function main()
 {
-
 	let lots = get_lots();
 
 	do
@@ -51,7 +52,7 @@ function print_lots(lots)
 {
 	if (lots.length <= 1)
 	{
-		return Error('Lots array has too few lots in it!');
+		return new Error('Lots array has too few lots in it!');
 	}
 	for (const lot of lots)
 	{
@@ -163,7 +164,7 @@ function prompt_int_in_range(message_str, min_num, max_num)
 max_num: ${max_num}, \
 valid_min_max: ${valid_min_max}`);
 	}
-	if (typeof(valid_min_max) == Error) return valid_min_max;
+	if (valid_min_max instanceof Error) return valid_min_max;
 
 	let limit_message = `Input a number between ${min_num} and ${max_num}. \
 A maximum of 0 implies no limit.`;
@@ -179,7 +180,7 @@ A maximum of 0 implies no limit.`;
 		valid_result = validate_num_in_range(min_num, max_num, result);
 		if (DEBUG) console.log(`!! valid_result: ${valid_result}`);
 
-		if (typeof(valid_result) == Error || true != valid_result) 
+		if (valid_result instanceof Error || true != valid_result) 
 		{ 
 			console.log(limit_message);
 			//shouldn't reach this for an error, because rlsync.questionInt
