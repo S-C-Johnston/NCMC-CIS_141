@@ -1,0 +1,67 @@
+Verbatim requirements:
+Pig 2-Dice Game
+
+Roll the dice to see who goes first.  Highest role of the die is the first
+player.
+
+When a Pig player takes their turn, they can roll the dice as many times as
+they want.  Scoring is simple – whatever the number of dots show up on the
+dice, that’s your points for the roll.  You keep rolling and accumulating the
+points.  If you roll a 3, then a 5, then a 2, and then a 6 your points so far
+would be 3 + 5 + 2 + 6 = 16.
+
+If one of the dice is a 1, no points are added to the overall score and your
+turn is over.  But, if BOTH the dice show up as 1’s your entire score goes
+back to zero (0), your turn is over, and you pass the dice to the other
+player.
+
+In 2-Dice Pig, doubles score higher. Just add up the dice value and double it.
+Rolling two 2’s = (2 + 2) x 2 = 8.  Rolling two 5’s = (5 + 5) x 2 = 20.  The
+same for 3’s, 4’s, and 6’s.
+
+First player to 500 wins!
+
+(End Verbatim)
+
+design:
+
+dice object
+- has a range defined on creation
+  + the range must be defined in terms of a minimum and a maximum, inclusive
+    * d6 would be `new dice(1,6)`
+  + returns rangeerror if maximum less than minimum
+- has a roll method
+  + returns random result in range
+  + accepts a request for multiple dice, will return the result integers as an
+array
+
+player object
+- has a score
+- method to modify score, accepts integers or "reset"
+- method to return score
+- has a name; method to set and get
+- has an initiative value for turn order
+
+players array
+- stores player object references in order of initiative
+
+pig_2-dice_results function
+- accepts an array of exactly two integers
+- sums dice results
+- special result for doubles
+  + if double ones, zero out score
+  + if doubles otherwise, multiply sum by two
+
+prompt function
+
+turn function
+- roll dice
+- interpret results (with callback?)
+
+main game loop
+- while loop which performs turns
+- if turn result 0, continue to next loop
+- if turn result "reset", modify player score and continue to next loop
+- otherwise prompt player to take another turn
+- when player chooses not to continue taking turns, modify score
+- after each turn check player score; if >= 500 return winner
