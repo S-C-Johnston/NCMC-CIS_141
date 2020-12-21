@@ -5,6 +5,7 @@
         "node": true
     },
     "extends": "eslint:recommended",
+	"parser": "@babel/eslint-parser",
     "parserOptions": {
         "ecmaVersion": 12
     },
@@ -26,6 +27,7 @@
             "always"
         ]
     },
-	"parser": "babel-eslint",
-	"plugins": "classPrivateMethods"
+	"plugins": [
+	"@babel"
+	]
 }
