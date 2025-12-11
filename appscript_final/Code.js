@@ -39,15 +39,15 @@ function match_label(re) {
 	var results = [];
 	var names = [];
 	var labels = GmailApp.getUserLabels();
-	for (var i = 0; i < labels.length; i++) {
-		names.push(labels[i].getName());
-	}
-	for (var i = 0; i < names.length; i++) {
-		if (names[i].match(re)) {
-			console.log("label: %s added", names[i]);
-			results.push(names[i]);
+	labels.forEach(label => {
+		names.push(label.getName());
+	})
+	names.forEach(name => {
+		if (name.match(re)) {
+			console.log("label: %s added", name);
+			results.push(name);
 		};
-	}
+	});
 	return results;
 }
 
