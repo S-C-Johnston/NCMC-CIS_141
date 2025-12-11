@@ -1,6 +1,6 @@
 function cleanUp() {
 	var debug = false;
-	var delayDays = 10 // Enter # of days before messages are moved to trash
+	var delayDays = 14 // Enter # of days before messages are moved to trash
 	var maxDate = new Date();
 	maxDate.setDate(maxDate.getDate() - delayDays);
 	console.log("Maximum date is: %s", maxDate);
