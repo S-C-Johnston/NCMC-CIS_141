@@ -17,21 +17,24 @@ function cleanUp(label_names, oldest_date) {
 		const label = GmailApp.getUserLabelByName(named_label);
 		const threads = label.getThreads();
 		console.log("Handling '%s' label", label.getName());
-		for (var j = 0; j < threads.length; j++) {
-			if (threads[j].getLastMessageDate() < maxDate) {
-				console.log(
-					"Trashing message with subject %s and date %s",
-					threads[j].getFirstMessageSubject(),
-					threads[j].getLastMessageDate()
-				);
+		threads.forEach(thread => {
+			if (thread.getLastMessageDate() < oldest_date) {
+				let offending_thread = {};
+				offending_thread.subject = thread.getFirstMessageSubject();
+				offending_thread.from = thread.getMessages()[0].getFrom();
+				offending_thread.date = thread.getLastMessageDate();
+				const found_thread_string = `Subject ${offending_thread.subject} from sender ${offending_thread.from} on date ${offending_thread.date}\n`;
+
+				console.log(found_thread_string);
+
 				if (!debug) {
-					threads[j].moveToTrash();
+					thread.moveToTrash();
 				}
 				else {
 					console.log("Debugging enabled, no trashing")
 				}
 			}
-		}
+		});
 	});
 }
 
