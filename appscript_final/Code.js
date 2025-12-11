@@ -11,11 +11,20 @@ function main() {
 	const label_regexp = /delete me.*/gi;
 	const label_names = match_label(label_regexp);
 
+	const sender_table = new Map(); // Key: sender email, Value: {count: number of messages from that sender} 
+	const summary_message_body = [];
 
-	cleanUp(label_names, oldest_date);
+	cleanUp(label_names, oldest_date, summary_message_body, sender_table);
+
+	const top_senders = get_top_senders(sender_table, 5);
+
+	prepare_final_summary(summary_message_body, sender_table);
+	send_summary_email(summary_message_body);
+
+	console.log("Summary message body:\n%s", summary_message_body);
 }
 
-function cleanUp(label_names, oldest_date) {
+function cleanUp(label_names, oldest_date, summary_message_body, sender_table) {
 	label_names.forEach(named_label => {
 		const label = GmailApp.getUserLabelByName(named_label);
 		const threads = label.getThreads();
@@ -27,8 +36,15 @@ function cleanUp(label_names, oldest_date) {
 				offending_thread.from = thread.getMessages()[0].getFrom();
 				offending_thread.date = thread.getLastMessageDate();
 				const found_thread_string = `Subject < ${offending_thread.subject} > from sender < ${offending_thread.from} > on date ${offending_thread.date}\n`;
+				summary_message_body.push(found_thread_string);
 
 				console.log(found_thread_string);
+
+				if (sender_table.has(String(offending_thread.from))) {
+					sender_table.set(String(offending_thread.from)), { count: sender_table.get(String(offending_thread)) + 1 };
+				} else {
+					sender_table.set(String(offending_thread.from), { count: 1 });
+				}
 
 				if (!debug) {
 					thread.moveToTrash();
@@ -63,10 +79,10 @@ function get_top_senders(sender_table, top_n) {
 }
 
 function prepare_final_summary(summary_message_body, sender_table) {
-	summary_message_body += "\n\nTop senders:\n";
+	summary_message_body.push("\n\nTop senders:\n");
 	const top_senders = get_top_senders(sender_table, 5);
 	top_senders.forEach(sender_entry => {
-		summary_message_body += `Sender: ${sender_entry[0]}, Count: ${sender_entry[1].count}\n`;
+		summary_message_body.push(`Sender: ${sender_entry[0]}, Count: ${sender_entry[1].count}\n`);
 	});
 	return summary_message_body;
 }
