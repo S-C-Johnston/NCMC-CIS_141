@@ -27,6 +27,7 @@ function main() {
 function cleanUp(label_names, oldest_date, summary_message_body, sender_table) {
 	label_names.forEach(named_label => {
 		const label = GmailApp.getUserLabelByName(named_label);
+		console.log(`Found ${label.getThreads().length} threads`);
 		const threads = label.getThreads();
 		console.log("Handling '%s' label", label.getName());
 		threads.forEach(thread => {
