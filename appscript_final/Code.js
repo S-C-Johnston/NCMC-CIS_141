@@ -26,7 +26,7 @@ function cleanUp(label_names, oldest_date) {
 				offending_thread.subject = thread.getFirstMessageSubject();
 				offending_thread.from = thread.getMessages()[0].getFrom();
 				offending_thread.date = thread.getLastMessageDate();
-				const found_thread_string = `Subject ${offending_thread.subject} from sender ${offending_thread.from} on date ${offending_thread.date}\n`;
+				const found_thread_string = `Subject < ${offending_thread.subject} > from sender < ${offending_thread.from} > on date ${offending_thread.date}\n`;
 
 				console.log(found_thread_string);
 
