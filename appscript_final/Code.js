@@ -6,7 +6,7 @@ function main() {
 	console.log("Oldest date is: %s", oldest_date);
 
 	const label_regexp = /delete me.*/gi;
-	var label_names = match_label(label_regexp);
+	const label_names = match_label(label_regexp);
 
 
 	cleanUp(label_names, oldest_date);
