@@ -75,7 +75,7 @@ function match_label(re) {
 }
 
 function get_top_senders(sender_table, top_n) {
-	var sorted_senders = Array.from(sender_table.entries()).sort((a, b) => b[1].count - a[1].count);
+	var sorted_senders = Array.from(sender_table.entries()).sort((a, b) => b[1] - a[1]);
 	return sorted_senders.slice(0, top_n);
 }
 
