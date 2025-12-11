@@ -2,7 +2,8 @@ const debug = true;
 
 function main() {
 	const delay_days = 14 // Enter # of days before messages are moved to trash
-	const oldest_date = new Date(Date.now()).setDate(-delay_days);
+	const oldest_date = new Date();
+	oldest_date.setDate(-delay_days);
 	console.log("Oldest date is: %s", oldest_date);
 
 	const label_regexp = /delete me.*/gi;
