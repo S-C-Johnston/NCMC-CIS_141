@@ -6,6 +6,8 @@ function main() {
 	oldest_date.setDate(-delay_days);
 	console.log("Oldest date is: %s", oldest_date);
 
+	console.log(`debug is ${debug}`);
+
 	const label_regexp = /delete me.*/gi;
 	const label_names = match_label(label_regexp);
 
