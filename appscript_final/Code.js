@@ -1,16 +1,21 @@
-function cleanUp() {
-	var debug = false;
-	var delayDays = 14 // Enter # of days before messages are moved to trash
-	var maxDate = new Date();
-	maxDate.setDate(maxDate.getDate() - delayDays);
-	console.log("Maximum date is: %s", maxDate);
+const debug = true;
+
+function main() {
+	const delay_days = 14 // Enter # of days before messages are moved to trash
+	const oldest_date = new Date(Date.now()).setDate(-delay_days);
+	console.log("Oldest date is: %s", oldest_date);
 
 	const label_regexp = /delete me.*/gi;
 	var label_names = match_label(label_regexp);
 
-	for (var i = 0; i < label_names.length; i++) {
-		var label = GmailApp.getUserLabelByName(label_names[i]);
-		var threads = label.getThreads();
+
+	cleanUp(label_names, oldest_date);
+}
+
+function cleanUp(label_names, oldest_date) {
+	label_names.forEach(named_label => {
+		const label = GmailApp.getUserLabelByName(named_label);
+		const threads = label.getThreads();
 		console.log("Handling '%s' label", label.getName());
 		for (var j = 0; j < threads.length; j++) {
 			if (threads[j].getLastMessageDate() < maxDate) {
@@ -27,7 +32,7 @@ function cleanUp() {
 				}
 			}
 		}
-	}
+	});
 }
 
 function match_label(re) {
@@ -46,4 +51,5 @@ function match_label(re) {
 	return results;
 }
 
-cleanUp();
+
+main();
