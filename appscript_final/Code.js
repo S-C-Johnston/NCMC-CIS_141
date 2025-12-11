@@ -51,5 +51,27 @@ function match_label(re) {
 	return results;
 }
 
+function get_top_senders(sender_table, top_n) {
+	var sorted_senders = Array.from(sender_table.entries()).sort((a, b) => b[1].count - a[1].count);
+	return sorted_senders.slice(0, top_n);
+}
+
+function prepare_final_summary(summary_message_body, sender_table) {
+	summary_message_body += "\n\nTop senders:\n";
+	const top_senders = get_top_senders(sender_table, 5);
+	top_senders.forEach(sender_entry => {
+		summary_message_body += `Sender: ${sender_entry[0]}, Count: ${sender_entry[1].count}\n`;
+	});
+	return summary_message_body;
+}
+
+function send_summary_email(summary_message_body) {
+	const user_email = Session.getActiveUser().getEmail();
+	if (!debug) {
+		GmailApp.sendEmail(user_email, "Gmail Cleanup Summary", summary_message_body);
+	} else {
+		GmailApp.sendEmail(user_email, "Gmail Cleanup Summary (Debug Mode)", summary_message_body);
+	}
+}
 
 main();
