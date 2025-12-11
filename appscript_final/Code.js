@@ -45,3 +45,5 @@ function match_label(re) {
 	}
 	return results;
 }
+
+cleanUp();
